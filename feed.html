@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/database-24.png" type="image/x-icon">
+</head>
+<body onload="renderFeed()">
+    <header>
+        <div class="header">
+            <div class="logo">
+                <a onclick="toLogIn()">
+                    <img src="img/database-64px.png" alt="">
+                    <span>The</span>Cude
+                </a>
+            </div>
+            <div class="boas-vindas">
+                <p class="mensagemUser">
+                    Bem vindo <span id="nomeUsuario"></span>
+                </p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="newPost">
+            <h2>Criar publicação</h2>
+                <textarea id="postContent" placeholder="Escreva algo aqui"></textarea>
+                <button class="btn" onclick="newPost()">publicar</button>
+        </div>
+        <div class="feed">
+        </div>
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>

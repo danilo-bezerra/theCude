@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rede social</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/database-24.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <a onclick="toLogIn()">
+                    <img src="img/database-64px.png" alt="">
+                    <span>The</span>Cude
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="form-box">
+            <h2>CADASTRO</h2>
+            <label for="username">Usuario</label>
+            <input type="text" id="username" placeholder="seu usuario aqui">
+            <label for="username">Senha</label>
+            <input type="password" id="password" placeholder="sua senha aqui">
+            <div class="showPass">
+                <input type="checkbox" onclick="viewPassowrd()">
+                <label>Mostar senha</label>                
+            </div>
+            <button class="btn" onclick="signUp()">Cadastra-se</button>
+            <a onclick="toLogIn()">Entrar em conta existente?</a>
+        </div>
+    </main>
+    <!-- <footer>
+        <p>Desenvolvido por <strong>Danilo bezerra</strong></p>
+    </footer> -->
+    <script src="index.js"></script>
+</body>
+</html>
