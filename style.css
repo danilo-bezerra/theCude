@@ -263,7 +263,7 @@ footer p {
     left: 0;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .form-box {
         position: static;
         margin: auto;

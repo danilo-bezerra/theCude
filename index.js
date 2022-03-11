@@ -14,7 +14,7 @@ function validateLogin(user, pass) {
                 return true
             }
         }
-        return alert("Usario e/ou senha incorretos\nTente novamente ou cadastre-se")
+        return alert("Usuario e/ou senha incorretos\nTente novamente ou cadastre-se")
     }
 }
 
