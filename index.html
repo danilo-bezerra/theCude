@@ -12,7 +12,7 @@
     <header>
         <div class="header">
             <div class="logo">
-                <a onclick="toLogIn()">
+                <a href="index.html">
                     <img src="img/database-64px.png" alt="">
                     <span>The</span>Cude
                 </a>
@@ -23,15 +23,15 @@
         <div class="form-box login">
             <h2>Login</h2>
             <label for="username">Usuario</label>
-            <input type="text" id="username" placeholder="seu usuario aqui">
+            <input type="text" id="username" placeholder="seu usuario aqui" required>
             <label for="username">Senha</label>
-            <input type="password" id="password" placeholder="sua senha aqui">
+            <input type="password" id="password" placeholder="sua senha aqui" required>
             <div class="showPass">
-                <input type="checkbox" onclick="viewPassowrd()">
+                <input type="checkbox" onclick="showPassoword()">
                 <label>Mostar senha</label>                
             </div>
-            <button class="btn" onclick="login()">Entrar</button>
-            <a onclick="toSingUp()">Não tem uma conta? Clique aqui!</a>
+            <button class="btn" onclick="logIn()">Entrar</button>
+            <a href="cadastro.html">Não tem uma conta? Clique aqui!</a>
         </div>
     </main>
     <!-- <footer>

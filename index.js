@@ -1,157 +1,137 @@
-let database = [
-    {
-        username: "xablau",
-        password: "12345"
-    },
-    {
-        username: "pingu",
-        password: "pingu"
-    },
-    {
-        username: "zeca",
-        password: "urubu"
-    },
-    {
-        username: "admin",
-        password: "admin"
-    }
-]
+let database = []
+let feed = []
 
-let newsFeed = [
-    {
-        username: "maninho do sertão",
-        timeline: "Catei umas macauba e vou fazer pirão"
-    },
-    {
-        username: "LaGaDa",
-        timeline: "lorem ipsun dele los gados en las flores"
-    },
-    {
-        username: "Ancap",
-        timeline: "Imposto é roubo"
-    }
-]
+let currentUser = localStorage.getItem("currentUser")
 
-let firstLogin = true
-let currentUser = ''
-let jaLogou = JSON.parse(localStorage.getItem("jaLogou"))
-if (jaLogou === false) {
-    firstLogin = false
-}
+/* CODIGO RELACIONADO AO LOGIN E CADASTRO DE USUARIOS */
 
-if (firstLogin) {
-    localStorage.setItem('feed', JSON.stringify(newsFeed))
-    localStorage.setItem('db', JSON.stringify(database))
-}
-
-function userValid(username, pass) {
+function validateLogin(user, pass) {
+    if (database.length === 0) {
+        return alert('BANCO DE DADOS VAZIO\nCadastre-se e tente novamente')
+    } else {
         for (let i = 0; i < database.length; i++) {
-            if (database[i].username == username && database[i].password == pass) {
+            if (database[i].username === user && database[i].password === pass) {
                 return true
             }
         }
-        return false
+        return alert("Usario e/ou senha incorretos\nTente novamente ou cadastre-se")
+    }
 }
 
-function userAlreadyExists(user) {
+function logIn() {
+    updateDatabase()
+    let usernameDigited = document.getElementById("username").value
+    let passwordDigited = document.getElementById("password").value
+    if (validateLogin(usernameDigited, passwordDigited)) {
+        localStorage.setItem("currentUser", usernameDigited)
+        location = 'feed.html'
+    }
+}
+
+function availableUser(user) {
     for (let i = 0; i < database.length; i++) {
-        if (database[i].username == user) {
-            return true
+        if (database[i].username === user || user[0] == ' ') {
+            return false
         }
     }
-    return false
-}
-
-function login() {
-    database = JSON.parse(localStorage.getItem('db'))
-    let username = document.querySelector("#username").value
-    let password = document.querySelector("#password").value
-    if (userValid(username, password)) {
-        currentUser = username
-        localStorage.setItem('user', currentUser)
-        localStorage.setItem('jaLogou', false)
-        location = 'feed.html'
-    } else {
-        alert("Usuario e/ou senhas incorretos\nTente novamento ou faça um novo cadastro")
-    }
+    return true
 }
 
 function signUp() {
-    let user = document.querySelector("#username").value
-    let pass = document.querySelector("#password").value
-    if (!userAlreadyExists(user) && user[0] != ' ' && user != '') {
-        console.log(database)
+    let usernameDigited = document.getElementById("username").value
+    let passwordDigited = document.getElementById("password").value
+
+    updateDatabase()
+
+    if (availableUser(usernameDigited) && usernameDigited.length > 0) {
         database.push(
             {
-                username: user,
-                password: pass
+                username: usernameDigited,
+                password: passwordDigited
             }
         )
-        localStorage.setItem('db', JSON.stringify(database))
-        database = JSON.parse(localStorage.getItem('db'))
-        alert("cadastrado com sucesso")
-        }
+        saveDatabase()
+        alert("Cadastro efetuado com sucesso")
+        location = 'index.html'
+    } else {
+        alert("Usuario já cadastrado ou invalido")
+    }
 }
 
-function isUserLogged() {
-        currentUser = localStorage.getItem('user')
-        if (currentUser) {
-            return true
-        } else {
-            return false
-        }
+function saveDatabase() {
+    localStorage.setItem("db", JSON.stringify(database))
+    updateDatabase()
 }
 
-function renderFeed() {
-    if (isUserLogged()) {
-        newsFeed = JSON.parse(localStorage.getItem('feed'))
-        let feed = document.querySelector(".feed")
-        document.querySelector("#nomeUsuario").innerHTML = currentUser
-        for (let i = 0; i < newsFeed.length; i++) {
-            feed.innerHTML += `
-            <div class="post">
-            <h2>${newsFeed[i].username}</h2>
-            <p>${newsFeed[i].timeline}</p>
-            </div>
-            `
-            console.log(newsFeed)
-        }
+function updateDatabase() {
+    let saveData = JSON.parse(localStorage.getItem("db"))
+    if (saveData != null) {
+        database = saveData
+    }
+}
+
+function showPassoword() {
+    let passwordInput = document.getElementById("password")
+    if (passwordInput.type == "password") {
+        passwordInput.type = "text"
+    } else {
+        passwordInput.type = "password"
+    }
+}
+
+/* CODIGO RELACIONADO AO FEED E CRIAÇÃO DE POSTS */
+
+function feedHasbeenLoaded(){
+    if (currentUser) {
+        document.getElementById("usernameText").innerText = currentUser
+        updateStoredFeed()
     } else {
         location = "index.html"
     }
 }
 
-function newPost() {
-    let writeContentBox = document.querySelector("#postContent")
-    let writeContent = document.querySelector("#postContent").value
-    if (writeContent && writeContent[0] != ' ') {
-        let novoFeed = [{username: currentUser, timeline:  writeContent}]
-        document.querySelector(".feed").innerHTML = ''
-        newsFeed = novoFeed.concat(newsFeed)
-        localStorage.setItem('feed', JSON.stringify(newsFeed))
-        renderFeed()
-        writeContentBox.value = ''
-    } else {
+function showFeedContent() {
+    let feedBox = document.querySelector(".feed")
 
-} }
-
-
-
-// _____________________
-
-function toLogIn() {
-    location = 'index.html'
-}
-
-function toSingUp() {
-    location = 'cadastro.html'
-}
-
-function viewPassowrd() {
-    var passowodField = document.getElementById("password");
-    if (passowodField.type === "password") {
-      passowodField.type = "text";
-    } else {
-      passowodField.type = "password";
+    if (feed.length > 0) {
+        feedBox.innerHTML = ''
+        for (let i = feed.length - 1; i >= 0; i--) {
+            feedBox.innerHTML += `
+            <div class="post">
+            <h2>${feed[i].username}</h2>
+            <p>${feed[i].postText}</p>
+            </div>`
+        }
     }
-  }
+}
+
+function newPost() {
+    let postContentDiv = document.querySelector("#postContent")
+    let postContent = document.querySelector("#postContent").value
+
+    if (postContent.length > 0 && postContent[0] !== ' ') {
+        feed.push(
+            {
+                username: currentUser,
+                postText: postContent
+            }
+        )
+        postContentDiv.value = ''
+        saveStoredFeed()
+    }
+    
+}
+
+function saveStoredFeed() {
+    localStorage.setItem('feedContent', JSON.stringify(feed))
+    updateStoredFeed()
+}
+
+function updateStoredFeed() {
+    lastFeedSaved = JSON.parse((localStorage.getItem("feedContent")))
+
+    if (lastFeedSaved !== null) {
+        feed = lastFeedSaved
+        showFeedContent()
+    }
+}

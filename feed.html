@@ -8,18 +8,18 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="img/database-24.png" type="image/x-icon">
 </head>
-<body onload="renderFeed()">
+<body onload="feedHasbeenLoaded()">
     <header>
         <div class="header">
             <div class="logo">
-                <a onclick="toLogIn()">
+                <a href="index.html">
                     <img src="img/database-64px.png" alt="">
                     <span>The</span>Cude
                 </a>
             </div>
             <div class="boas-vindas">
                 <p class="mensagemUser">
-                    Bem vindo <span id="nomeUsuario"></span>
+                    Bem vindo <span id="usernameText"></span>
                 </p>
             </div>
         </div>
@@ -31,6 +31,10 @@
                 <button class="btn" onclick="newPost()">publicar</button>
         </div>
         <div class="feed">
+            <div class="noPosts">
+                <h2>NÃO HÁ POSTAGENS!</h2>
+                <p>Seja o primeiro a publicar escrevendo o que desejar na caixa de texto acima e clicando em "PUBLICAR".</p>
+                </div>
         </div>
     </main>
     <script src="index.js"></script>

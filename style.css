@@ -60,6 +60,30 @@ header {
 
 .boas-vindas span {
     color: #07F2DB;
+    font-size: 24px;
+    margin-left: 4px;
+}
+
+.noPosts {
+    background-color: #fff;
+    border-radius: 5px;
+    letter-spacing: 2px;
+}
+
+.noPosts h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    border-radius: 4px 4px 0 0;
+    background-color: #02b3a1e1;
+    color: #bf2121;
+}
+
+.noPosts p {
+    border-top: 1px solid #444343;
+    padding: 1rem;
+    color: #444343;
+    text-align: center;
 }
 
 a {
